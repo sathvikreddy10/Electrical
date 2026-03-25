@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@theme {
+  /* Page */
+  --color-bg:          #efeded;  /* main page background */
+
+  /* Text shades */
+  --color-text-sub:    #4a4a4a;  /* NIT, Andhra Pradesh subtitle */
+  --color-text-muted:  #696969;  /* section labels — The Arena, Our Team */
+  --color-text-quote:  #b1b1b1;  /* decorative quote marks */
+  
+  /* Brand */
+
+
+
+  
+  /* Placeholder */
+  --color-placeholder: #d9d9d9;  /* image placeholder rects */
+  
+  /* Event cards */
+  --color-genesis:     #6a8dff;
+  --color-vulcanzy:    #5bde89;
+  --color-techkriya:   #de8837;
+  --color-tour:        #ff33e7;
+  
+  /* Fonts — this is what makes font-syne and font-outfit work as Tailwind classes */
+}
+
+@theme inline {
+  --font-syne:   var(--font-syne);
+  --font-outfit: var(--font-outfit);
+}
+
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: auto; }
+body { -webkit-font-smoothing: antialiased; background-color: #efeded ; min-height: 120vh;}
+img, video { max-width: 100%; display: block; }
