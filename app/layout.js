@@ -1,6 +1,7 @@
 import { Syne, Outfit } from 'next/font/google'
 import LenisProvider from './components/LenisProvider'
 import './globals.css'
+import Navbar from './components/Navbar'
 
 const syne = Syne({
   subsets: ['latin'],
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${syne.variable} ${outfit.variable}`}>
       <body>
+         <Navbar/>
         <LenisProvider>
           {children}
         </LenisProvider>

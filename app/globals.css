@@ -34,5 +34,5 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: auto; }
-body { -webkit-font-smoothing: antialiased; background-color: #efeded ; min-height: 120vh;}
+body { -webkit-font-smoothing: antialiased; background-color: #efeded ; min-height: 120vh; position: relative;}
 img, video { max-width: 100%; display: block; }

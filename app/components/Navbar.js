@@ -13,23 +13,37 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
-        useEffect(() => {
-        let lastY = window.scrollY
+useEffect(() => {
+    let lastY = window.scrollY;
 
-        const onScroll = () => {
-            const currentY = window.scrollY
-            const goingDown = currentY > lastY
-            setScrolled(goingDown)
-            lastY = currentY
+    const onScroll = () => {
+        const currentY = window.scrollY;
+        const delta = currentY - lastY;
+
+        // Math.abs() turns a -2 (scrolling up) into a regular 2.
+        // This checks if you have moved more than 2px in EITHER direction.
+        if (Math.abs(delta) > 5) {
+            
+            if (delta > 0) {
+                // Positive delta = scrolling DOWN
+                setScrolled(true);
+            } else {
+                // Negative delta = scrolling UP
+                setScrolled(false);
+            }
+            
+            // CRITICAL FIX: We ONLY update lastY here, inside the threshold block!
+            lastY = currentY; 
         }
+    };
 
-        window.addEventListener('scroll', onScroll)
-        return () => window.removeEventListener('scroll', onScroll)
-        }, [])
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+}, []);
 
   return (
     <>
-      <nav className={`fixed relative top-[0.75rem] left-1/2 -translate-x-1/2 z-50 flex items-center justify-between pl-[2.1rem] pr-[0.5rem] bg-white rounded-full transition-all duration-500 h-[3.9rem] ${scrolled ? 'w-[72%] ' : 'w-[98%] '}`}>
+      <nav className={`fixed top-[0.75rem] left-1/2 -translate-x-1/2 z-50 flex items-center justify-between pl-[2.1rem] pr-[0.5rem] bg-white rounded-full transition-all duration-700 h-[3.9rem] ${scrolled ? 'w-[30%] -translate-y-[1rem] opacity-0' : 'w-[98%] '}`}>
 
         {/* Hamburger */}
         <button onClick={() => setOpen(!open)} aria-label="menu" className="flex flex-col justify-center gap-[0.3rem] w-[2.5rem] h-[2.5rem] bg-transparent border-0 cursor-pointer shrink-0">

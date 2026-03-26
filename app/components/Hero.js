@@ -4,7 +4,7 @@ import Transformer from "../Assets/Tranformer.png"
 export default function Hero() {
   return (
 
-   <div className='Hero w-full flex flex-col pt-[0.9rem] h-[calc(100vh-4rem)]'>
+   <div className='Hero w-full flex flex-col pt-[4.9rem] h-[100vh] sticky top-0 z-1'>
     <div className="image-text flex w-full justify-between h-[70vh]">
         <div className="image w-[clamp(45rem,54vw,54rem)] shrink-0">
         <Image
