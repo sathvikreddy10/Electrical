@@ -50,8 +50,7 @@ export default function Faculty() {
       scrollTrigger: {
         trigger: triggerRef.current,
         start: "center center", 
-        // I bumped this to 200% so you have plenty of physical scroll room to read
-        end: `+=${slides.length * 200}%`, 
+        end: `+=${slides.length * 200}%`, // Bumped to 200% to give room for the curtain math
         pin: true,
         scrub: 1,
         pinSpacing: true, 
@@ -61,21 +60,32 @@ export default function Faculty() {
     slides.forEach((slide, index) => {
       if (index === 0) return 
 
-      // 1. THE HOLD: Tell GSAP to animate "nothing" for 1 unit of scroll distance. 
-      // This is your reading time.
+      // 1. THE HOLD: Reading time.
       tl.to({}, { duration: 1 })
 
-      // 2. THE SNAP: Change the old card to invisible super fast (0.1 units)
-      tl.to(slides[index - 1], { 
-          autoAlpha: 0, 
-          duration: 0.1 
+      // 2. DROP THE CURTAIN 
+      // Changed duration from 0.5 to 1. Added power3.out for that smooth deceleration.
+      tl.to('.master-curtain', { 
+          scaleY: 1, 
+          duration: 1, 
+          ease: "power3.out" 
       })
-      // 3. THE SNAP: Bring the new card in at the exact same time
-      .fromTo(slide, 
-          { autoAlpha: 0 }, 
-          { autoAlpha: 1, duration: 0.1 }, 
-          "<" 
-      )
+
+      // 3. THE HEIST (Instantly swap them while the curtain is down)
+      .set('.master-curtain', { transformOrigin: "bottom" })
+      .set(slides[index - 1], { autoAlpha: 0 })
+      .set(slide, { autoAlpha: 1 })
+
+      // 4. LIFT THE CURTAIN
+      // Changed duration to 1. Added power3.out so it gracefully slows down as it reveals the image.
+      .to('.master-curtain', { 
+          scaleY: 0, 
+          duration: 1,
+          ease: "power3.out"
+      })
+
+      // 5. RESET
+      .set('.master-curtain', { transformOrigin: "top" })
     })
 
     return () => {
@@ -96,25 +106,37 @@ export default function Faculty() {
             <div className="team w-full">
                 <div className="small_head text-[1.2rem] font-syne text-[#999] mb-[2rem]"> Our Team </div>
                 
-                <div className="data grid w-full"> 
+                {/* Made this relative so the absolute curtain stays trapped inside it */}
+                <div className="data grid w-full relative"> 
                     
+                    {/* THE MAGIC TRICK: A blank white sheet. 
+                        scaleY(0) means it starts completely flat/invisible.
+                        origin-top means when it grows, it pushes downward.
+                    */}
+                    <div 
+                        className="master-curtain absolute top-0 left-0 w-full h-full bg-[#ffffff] z-10" 
+                        style={{ transformOrigin: "top", transform: "scaleY(0)" }}
+                    ></div>
+
                     {teamData.map((person, index) => (
                         <div 
                         key={person.id} 
                         className={`person-slide col-start-1 row-start-1 flex pr-[2.6rem] w-full ${index !== 0 ? 'invisible opacity-0' : ''}`}
                         >
                         
-                        <div className="photo w-[32.5rem] h-[37.5rem] shrink-0" style={{ backgroundColor: person.color }}></div>
+                        <div className="photo-container w-[32.5rem] h-[37.5rem]">
+                            <div className="photo w-[32.5rem] h-[37.5rem] shrink-0" style={{ backgroundColor: person.color }}></div>
+                        </div>
                         
                         <div className="left font-outfit font-normal text-[#222] w-[20vw] leading-[1.35rem] ml-[2.5rem]">
                             {person.bio}
                         </div>
                         
-                        <div className="right self-end ml-auto mr-[3rem] text-left w-[15rem]"> 
-                            <div className="small_head text-[1.6rem] font-syne text-[#000]"> {person.name} </div>
-                            <div className="small_head text-[1.6rem] font-syne text-[#000]"> {person.role} </div>
-                            <div className="small_head text-[1.6rem] font-syne text-[#000]"> {person.email} </div>
-                            <div className="small_head text-[1.6rem] font-syne text-[#000]"> {person.tag} </div>
+                        <div className="right self-end ml-auto mr-[4rem] text-left w-[15rem] flex flex-col gap-2"> 
+                            <div className="small_head text-[1.6rem] leading-none font-syne text-[#000]"> {person.name} </div>
+                            <div className="small_head text-[1.2rem] leading-none font-syne text-[#000]"> {person.role} </div>
+                            <div className="small_head text-[1.2rem] leading-none font-syne text-[#000]"> {person.email} </div>
+                            <div className="small_head text-[1.2rem] leading-none font-syne text-[#000]"> {person.tag} </div>
                         </div>
                         
                         </div>

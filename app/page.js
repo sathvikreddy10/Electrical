@@ -1,7 +1,7 @@
 import Navbar from "./components/Navbar"
 import Hero from "./components/Hero"
 import Textoverlay from "./components/Textoverlay"
-
+import Loader from "./components/Loader"
 import Events from "./components/Events"
 import Faculty from "./components/Faculty"
 import Footer from "./components/Footer"
@@ -9,7 +9,7 @@ import Footer from "./components/Footer"
 export default function Home() {
   return (
     <>
-  
+  <Loader/>
    <Hero/>
    <div className="bg-[#efeded] relative z-2">
     
