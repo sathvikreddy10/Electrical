@@ -11,6 +11,7 @@ export default function ScrollRevealText({ text, customClasses }) {
     target: containerRef,
     offset: ["start 80%", "end 50%"] 
   });
+  
 
   const words = text.split(" ");
 

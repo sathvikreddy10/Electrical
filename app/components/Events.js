@@ -2,7 +2,7 @@
 
 export default function Events() {
   return (
-    <div className="Events bg-[#fff] rounded-[2rem] flex flex-col p-[2.5rem] pt-[4rem] gap-[4rem]">
+    <div className="Events bg-[#fff] rounded-[2rem] flex flex-col p-[2.5rem] pt-[4rem] gap-[4rem] relative z-2">
       <div className="text">
         <div className="small_txt font-syne font-medium text-[1.2rem] h-[4rem] text-[#4b4b4b] leading-none whitespace-pre">The Arena</div>
         <div className="big_txt font-syne font-medium text-[2rem] leading-[2.6rem] w-[80%]">Step out of the lecture hall and into the grid. This is our tactical proving ground. We force our collective through intensive hardware battles, algorithmic sprints, and late-night build sessions to separate the theorists from the actual architects of tomorrow</div>

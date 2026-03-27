@@ -3,7 +3,7 @@ import ScrollRevealText from "./ScrollReveal"
 export default function Faculty() {
   return (
     <>
-    <div className="min-h-[100vh] pl-[2.6rem] pt-[15rem] flex flex-col gap-[6rem]">
+    <div className="min-h-[100vh] pl-[2.6rem] pt-[15rem] flex flex-col gap-[6rem] relative z-2 bg-[#ffffff]">
 
         <div className="max-w-[55vw] ">
             <ScrollRevealText text="The grid of tomorrow isn't built on yesterday's blueprints. We are a collective of driven minds, pushing the absolute limits of circuitry, sustainable energy, and complex systems. We don't just adapt to the resistance—we use it to propel ourselves forward. Transforming raw potential into kinetic impact" 
